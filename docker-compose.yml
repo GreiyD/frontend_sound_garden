@@ -1,0 +1,23 @@
+services:
+  frontend:
+    container_name: frontend_${PROJECT_NAME}
+    build:
+      context: .
+      dockerfile: docker/nodejs/nodejs.Dockerfile
+      args:
+        WORKDIR: ${WORKDIR}
+    ports:
+      - ${NODE_PORT}:3000
+    env_file:
+      - .env
+    volumes:
+      - ./app:${WORKDIR}
+    working_dir: ${WORKDIR}
+    tty: true
+    user: ${USER_ID}:${GROUP_ID}
+    networks:
+      - sound-garden-network-dev
+
+networks:
+  sound-garden-network-dev:
+    external: true
