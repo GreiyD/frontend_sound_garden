@@ -11,7 +11,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./app:${WORKDIR}
+      - .:${WORKDIR}
     working_dir: ${WORKDIR}
     tty: true
     user: ${USER_ID}:${GROUP_ID}
