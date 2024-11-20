@@ -32,3 +32,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+
+.form-control:focus {
+  border-color: #c3c3c3;
+  box-shadow: none;
+}
+</style>
