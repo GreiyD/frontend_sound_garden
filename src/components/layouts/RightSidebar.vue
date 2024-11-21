@@ -1,7 +1,7 @@
 <template>
-  <div class="sidebar bg-light rounded p-3">
-    <!-- Содержимое сайдбара -->
-  </div>
+<!--  <div class="sidebar bg-light rounded p-3">-->
+<!--    &lt;!&ndash; Содержимое сайдбара &ndash;&gt;-->
+<!--  </div>-->
 </template>
 
 <script>

@@ -4,11 +4,23 @@ import HomeView from '../views/HomeView.vue';
 import AboutView from '../views/AboutView.vue';
 import LoginView from '../views/LoginView.vue';
 import RegisterView from '../views/RegistrationView.vue';
+import AuthLayout from "../layouts/AuthLayout.vue";
 
 const routes = [
     {
         path: '/',
         component: MainLayout,
+        children: [
+            {
+                path: '',
+                name: 'home',
+                component: HomeView,
+            }
+        ],
+    },
+    {
+        path: '/auth',
+        component: AuthLayout,
         children: [
             {
                 path: 'login',

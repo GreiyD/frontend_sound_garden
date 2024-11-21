@@ -5,7 +5,7 @@
       <!-- Карточка с формой -->
       <div class="card col-4 rounded-0 rounded-start">
         <div class="card-body">
-          <Logo />
+          <Logo size="250px" class="mb-4"/>
           <h2 class="card-title mb-3 text-center">Login</h2>
           <LoginForm/>
         </div>
@@ -19,7 +19,7 @@
         </p>
         <p class="text-center mb-3">
           Please register from
-          <router-link to="/register" class="link">
+          <router-link to="/auth/register" class="link">
             here
           </router-link>
         </p>
