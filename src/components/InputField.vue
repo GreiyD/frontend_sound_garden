@@ -3,16 +3,20 @@
   <input
       :type="type"
       class="form-control"
+      :class="{ 'is-invalid': error }"
       :id="id"
       :placeholder="placeholder"
       v-bind="$attrs"
+      @input="$emit('update:modelValue', $event.target.value)"
   />
+  <div v-if="error" class="invalid-feedback">{{ error }}</div>
 </template>
 
 <script>
 export default {
   name: 'InputField',
   props: {
+    modelValue: String,
     id: {
       type: String,
       required: true,
@@ -26,6 +30,10 @@ export default {
       default: 'text',
     },
     placeholder: {
+      type: String,
+      default: '',
+    },
+    error: {
       type: String,
       default: '',
     },

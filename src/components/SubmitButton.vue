@@ -1,5 +1,5 @@
 <template>
-  <button type="submit" class="button col-8">{{ label }}</button>
+  <button type="button" class="button col-8">{{ label }}</button>
 </template>
 
 <script>
