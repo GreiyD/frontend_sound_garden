@@ -2,12 +2,12 @@
   <form class="forms-sample" @submit.prevent="handleRegistration">
     <div class="mb-3">
       <InputField
-          id="name"
-          v-model="formData.name"
-          label="Name"
+          id="nickname"
+          v-model="formData.nickname"
+          label="Nickname"
           type="text"
-          placeholder="Enter name"
-          :error="errors?.name?.[0] || ''"
+          placeholder="Enter nickname"
+          :error="errors.nickname"
       />
     </div>
     <div class="mb-3">
@@ -17,7 +17,7 @@
           label="Email"
           type="email"
           placeholder="Enter email"
-          :error="errors?.email?.[0] || ''"
+          :error="errors.email"
       />
     </div>
     <div class="mb-3">
@@ -27,7 +27,7 @@
           label="Password"
           type="password"
           placeholder="Enter password"
-          :error="errors?.password?.[0] || ''"
+          :error="errors.password"
       />
     </div>
     <div class="mb-3">
@@ -37,7 +37,7 @@
           label="Confirm Password"
           type="password"
           placeholder="Confirm your password"
-          :error="errors?.confirmPassword?.[0] || ''"
+          :error="errors.confirmPassword"
       />
     </div>
     <div class="row mt-4 mb-3">
@@ -53,6 +53,7 @@ import InputField from '../InputField.vue';
 import SubmitButton from '../SubmitButton.vue';
 import {useToast} from "vue-toastification";
 import { registerUser } from '../../api/users'
+import {parseErrors} from '../../utils/validationErrorParser.js';
 
 export default {
   name: "RegistrationForm",
@@ -63,7 +64,7 @@ export default {
   data() {
     return {
       formData: {
-        name: "",
+        nickname: "",
         email: "",
         password: "",
         confirmPassword: "",
@@ -72,16 +73,6 @@ export default {
     };
   },
   methods: {
-    parseErrors(errorArray) {
-      const parsed = {};
-      errorArray.forEach((error) => {
-        if (!parsed[error.field]) {
-          parsed[error.field] = [];
-        }
-        parsed[error.field].push(error.message);
-      });
-      return parsed;
-    },
     async handleRegistration() {
       const toast = useToast();
 
@@ -92,9 +83,7 @@ export default {
         this.$router.push("/auth/login");
       } catch (error) {
         if (error.response && error.response.status === 400) {
-          this.errors = error.response.data.errors || {};
-          this.errors = this.parseErrors(error.response.data.errors);
-
+          this.errors = parseErrors(error.response.data.errors);
           toast.error(error.response.data.message);
         } else {
           toast.error("Registration failed. Please try again.");

@@ -7,7 +7,7 @@
           label="Email"
           type="email"
           placeholder="Enter email"
-          :error="errors?.email?.[0] || ''"
+          :error="errors.email"
       />
     </div>
     <div class="mb-3">
@@ -17,7 +17,7 @@
           label="Password"
           type="password"
           placeholder="Enter password"
-          :error="errors?.password?.[0] || ''"
+          :error="errors.password"
       />
     </div>
     <div class="row mt-4 mb-3">
@@ -36,6 +36,8 @@ import InputField from '../InputField.vue';
 import SubmitButton from '../SubmitButton.vue';
 import {useToast} from "vue-toastification";
 import {loginUser} from '../../api/users'
+import {parseErrors} from '../../utils/validationErrorParser.js';
+import {jwtDecode} from 'jwt-decode';
 
 export default {
   name: 'LoginForm',
@@ -53,33 +55,29 @@ export default {
     };
   },
   methods: {
-    parseErrors(errorArray) {
-      const parsed = {};
-      errorArray.forEach((error) => {
-        if (!parsed[error.field]) {
-          parsed[error.field] = [];
-        }
-        parsed[error.field].push(error.message);
-      });
-      return parsed;
+    saveTokenData(token) {
+      try {
+        const decodedUserData = jwtDecode(token);
+        localStorage.setItem('nickname', decodedUserData.nickname);
+
+        return decodedUserData;
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        throw new Error('Invalid token');
+      }
     },
     async handleLogin() {
       const toast = useToast();
-
       try {
         const response = await loginUser(this.formData);
-        const { name } = response.data.user;
+        const { token } = response.data.user;
 
-        localStorage.setItem('nickname', name);
-
+        this.saveTokenData(token);
         toast.success('Login successful!');
         this.$router.push('/');
       } catch (error) {
-
         if (error.response && error.response.status === 400) {
-          this.errors = error.response.data.errors || {};
-          this.errors = this.parseErrors(error.response.data.errors);
-
+          this.errors = parseErrors(error.response.data.errors || []);
           toast.error(error.response.data.message);
         } else {
           toast.error(error.response?.data?.message || 'Login failed. Please try again.');
