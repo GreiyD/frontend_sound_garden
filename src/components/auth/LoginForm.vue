@@ -57,6 +57,8 @@ export default {
   methods: {
     saveTokenData(token) {
       try {
+        localStorage.setItem('jwtToken', token);
+
         const decodedUserData = jwtDecode(token);
         localStorage.setItem('nickname', decodedUserData.nickname);
 

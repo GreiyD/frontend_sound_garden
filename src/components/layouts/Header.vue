@@ -1,6 +1,6 @@
 <template>
-  <header class="p-3 mb-3 border-bottom">
-    <div class="row">
+  <header class="mb-2 border-bottom">
+    <div class="row mx-0 my-2">
       <div class="col-5 d-flex">
         <Logo size="50px"/>
         <ul class="nav justify-content-center px-2 align-self-center">
@@ -23,8 +23,10 @@
         <SearchForm/>
       </div>
 
-      <div class="text-end col-5 align-self-center">
-        <UserAvatar/>
+      <div class="col-5">
+        <div class="d-flex justify-content-end">
+          <UserMenu/>
+        </div>
       </div>
     </div>
   </header>
@@ -33,14 +35,14 @@
 <script>
 import Logo from "../Logo.vue";
 import SearchForm from "../SearchForm.vue";
-import UserAvatar from "../UserAvatar.vue";
+import UserMenu from "../UserMenu.vue";
 
 export default {
   name: 'Header',
   components: {
-    UserAvatar,
     Logo,
-    SearchForm
+    SearchForm,
+    UserMenu
   }
 }
 </script>

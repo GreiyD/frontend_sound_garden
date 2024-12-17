@@ -1,5 +1,4 @@
 <template>
-  <span v-if="nickname" class="fw-bold me-3">{{ nickname }}</span>
   <img src="https://github.com/mdo.png" alt="User Avatar" width="50" height="50" class="rounded-circle">
 </template>
 

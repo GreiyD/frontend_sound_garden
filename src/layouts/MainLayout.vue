@@ -1,12 +1,12 @@
 <template>
-    <Header/>
+  <Header/>
     <div class="container-fluid mb-3">
-      <div class="row">
-        <div class="container col-2 p-1" style="height: 85.5vh">
-          <LeftSidebar/>
+      <div class="row g-2">
+        <div class="col-2" style="height: 85.5vh">
+          <LeftSidebar />
         </div>
-        <div class="container col-10 p-1" style="height: 85.5vh">
-          <Content/>
+        <div class="col-10" style="height: 85.5vh">
+          <Content />
         </div>
       </div>
     </div>
